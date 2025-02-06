@@ -14,7 +14,7 @@
                 <span class="text-white text-lg font-bold">Sheryians Coding School</span>
                 <div>
                     <a href="/user/create" class="px-4 py-2 text-blue-600 bg-white rounded-lg hover:bg-gray-200">Create Post</a>
-                    <a onclick="logout()" href="/" class="px-4 py-2 text-blue-600 bg-white rounded-lg hover:bg-gray-200">Log Out</a>
+                    <a href="/user/logout" class="px-4 py-2 text-blue-600 bg-white rounded-lg hover:bg-gray-200">Log Out</a>
                 </div>
             </div>
         </nav>
@@ -31,19 +31,6 @@
                 <%  }) %>
             </div>
         </main>
-        <script>
-            function logout() {
-                // Get all cookies
-                document.cookie.split(";").forEach(cookie => {
-                    document.cookie = cookie
-                        .replace(/^ +/, "") // Remove leading spaces
-                        .replace(/=.*/, "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"); // Set expiration date to past
-                });
-            
-                alert("You have been logged out!");
-                window.location.href = "/login"; // Redirect to login page
-            }
-            </script>
     </body>
     </html>
 

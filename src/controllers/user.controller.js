@@ -3,39 +3,23 @@ const postModel = require('../models/postModel')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
-// module.exports.feedController = (req, res)=>{
-  
-//     // res.render('feed')
-// }
+ 
 
 module.exports.feedController = async(req, res)=>{
-    try{
-        const postdata = await postModel.find()
-
-        const token = req.cookies.token
-        if(!token){
-            return res.redirect("/user/login");
-        }
-        
-        const decoded = jwt.verify(token,process.env.SECRET_KEY )
+    const postdata = await postModel.find()
         res.render('feed', {postdata})
-        console.log(token)
-        
-        
+    
     }
-    catch(err){
-        console.log(err)
-     res.redirect("/user/login")
-    }
-}
-            
+     
+
+       
 module.exports.registercontroller = (req, res) => {
     res.render("register");
   };
 module.exports.registerController = async (req, res)=>{
     try{
 
-        console.log(req.body)
+        
         
         const {username, email, password, imageurl} = req.body
         
@@ -80,13 +64,13 @@ module.exports.loginController = async(req, res)=>{
         })
         
         if(!user){
-            res.redirect('/user/login')
+            res.redirect('/user/register')
         }
         
         const isMatch = await bcrypt.compare(password, user.password)
 
         if(!isMatch){
-            res.redirect('/user/login')
+            res.redirect('/user/register')
             
         }
         
@@ -125,7 +109,15 @@ module.exports.postCreateController = async(req, res)=>{
       res.redirect('/user/feed')
 
 }
-            
+       
+ 
+module.exports.logOutcontroller = (req, res) => {
+    res.clearCookie("token", { path: "/"});
+    res.redirect("/user/register");
+};
+
+    
+ 
         
         
         
@@ -133,3 +125,8 @@ module.exports.postCreateController = async(req, res)=>{
         
         
 
+        
+      
+        
+        
+            
